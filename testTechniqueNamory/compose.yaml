@@ -1,0 +1,33 @@
+version: '3.9'
+services:
+  # PHP-FPM Service
+  php-fpm:
+    container_name: php
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      # Mounts the local 'app' directory to the container's Nginx root
+      - ./app:/var/www/html
+  mysql-db:
+    container_name: mysql
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: test_database
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    ports:
+      # Maps port 3306 on the host to port 3306 on the MySQL container
+      - "3306:3306"
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    links:
+      # Links the PHPMyAdmin service to the MySQL database service
+      - mysql-db
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: mysql-db
+      # Use MySQL root password for PHPMyAdmin
+      MYSQL_ROOT_PASSWORD: password

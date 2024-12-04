@@ -143,7 +143,7 @@ class ProduitController extends AbstractController
         if (!$checkProduitsExist) {
             return $this->json([
                 "error" => true,
-                "message" => "Le produit avec l'ID donné n'existe pas.",
+                "message" => "Produit non trouvé.",
             ], 404);
         }
 
@@ -202,16 +202,10 @@ class ProduitController extends AbstractController
         $this->entityManager->flush();
 
 
-        return $this->json([
-            "error" => false,
-            "message" => "Produit  modifié avec succès.",
-            "produit" => [
-                "nom" => $checkProduitsExist->getNom(),
-                "description" => $checkProduitsExist->getDescription(),
-                "prix" => $checkProduitsExist->getPrix(),
-                "categorie" => $checkProduitsExist->getCategorie()->getNom(), 
-            ],
-        ], 201);
+       return $this->json([
+        "error" => false,
+        "message" => "Produit modifié avec succès.",
+    ], 200);
     }
 
     #[Route('v1/delete/produit/{id}', methods: ['DELETE'], name: 'app_delete_produit')]

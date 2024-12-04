@@ -216,8 +216,13 @@ class ProduitController extends AbstractController
     }
 
     #[Route('v1/delete/produit/{id}', methods: ['DELETE'], name: 'app_delete_produit')]
-    public function DeleteProduit(int $id): JsonResponse
+    public function DeleteProduit(int $id,Request $request): JsonResponse
     {
+        $currentUser = $this->tokenVerifier->checkToken($request, null);
+
+        if (gettype($currentUser) == 'boolean') {
+            return $this->tokenVerifier->sendJsonErrorToken();
+        }
         $checkProduitsExist = $this->produitsRepository->find($id);
         if (!$checkProduitsExist) {
             return $this->json([

@@ -79,12 +79,12 @@ class CategorieController extends AbstractController
     #[Route('v1/edit/categorie/{id}', methods: ['PUT'], name: 'app_edit_categorie')]
     public function EditCategory(int $id, Request $request): JsonResponse
     {
-        /*
+
         $currentUser = $this->tokenVerifier->checkToken($request, null);
 
         if (gettype($currentUser) == 'boolean') {
             return $this->tokenVerifier->sendJsonErrorToken();
-        }*/
+        }
         $cheackCategorie = $this->categoryRepository->find($id);
         $name = $request->request->get('nom');
 
@@ -128,12 +128,12 @@ class CategorieController extends AbstractController
     #[Route('v1/delete/categorie/{id}', methods: ['DELETE'], name: 'app_delete_categorie')]
 
     public function DeleteCategory(int $id,Request $request): JsonResponse
-    {/*
+    {
         $currentUser = $this->tokenVerifier->checkToken($request, null);
 
         if (gettype($currentUser) == 'boolean') {
             return $this->tokenVerifier->sendJsonErrorToken();
-        }*/
+        }
         $cheackCategorie = $this->categoryRepository->find($id);
         if (!$cheackCategorie) {
             return $this->json([

@@ -133,12 +133,11 @@ class ProduitController extends AbstractController
     #[Route('v1/edit/produit/{id}', methods: ['PUT'], name: 'app_put_produit')]
     public function EditProduit(int $id, Request $request): JsonResponse
     {
-        /*
         $currentUser = $this->tokenVerifier->checkToken($request, null);
 
         if (gettype($currentUser) == 'boolean') {
             return $this->tokenVerifier->sendJsonErrorToken();
-        }*/
+        }
         $checkProduitsExist = $this->produitsRepository->find($id);
 
         if (!$checkProduitsExist) {
